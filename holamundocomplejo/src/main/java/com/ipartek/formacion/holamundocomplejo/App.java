@@ -1,13 +1,10 @@
 package com.ipartek.formacion.holamundocomplejo;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+    	ProcesadorMensajes procesador = new Fabrica("holamundo").getProcesadorMensajes();
+        procesador.procesar();
     }
 }
