@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form method="post" th:object="${producto}">
+	<input type="number" th:field="*{id}" placeholder="ID" />
+	<input type="text" th:field="*{nombre}" placeholder="Nombre" />
+	<input type="number" step=".01" th:field="*{precio}" placeholder="Precio" />
+	<input type="date" th:field="*{fechaIncorporacion}" placeholder="Fecha de incorporación" />
+	<button>Aceptar</button>
+</form>
+
+<ul>
+	<li th:text="${producto.id}">1</li>
+	<li th:text="${producto.nombre}">Monitor</li>
+	<li th:text="${producto.precio}">123,45</li>
+	<li th:text="${producto.fechaIncorporacion}">01-02-2003</li>
+</ul>
+
+</body>
+</html>

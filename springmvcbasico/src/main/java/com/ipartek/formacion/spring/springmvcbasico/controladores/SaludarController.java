@@ -1,4 +1,4 @@
-package com.ipartek.formacion.spring.springmvcbasico;
+package com.ipartek.formacion.spring.springmvcbasico.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
