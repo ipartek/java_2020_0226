@@ -8,18 +8,21 @@
 
 <form method="post" th:object="${producto}">
 	<input type="number" th:field="*{id}" placeholder="ID" />
+	<span th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></span>
+	
 	<input type="text" th:field="*{nombre}" placeholder="Nombre" />
+	<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+	
 	<input type="number" step=".01" th:field="*{precio}" placeholder="Precio" />
+	<span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+	
 	<input type="date" th:field="*{fechaIncorporacion}" placeholder="Fecha de incorporación" />
+	<span th:if="${#fields.hasErrors('fechaIncorporacion')}" th:errors="*{fechaIncorporacion}"></span>
+	
 	<button>Aceptar</button>
 </form>
 
-<ul>
-	<li th:text="${producto.id}">1</li>
-	<li th:text="${producto.nombre}">Monitor</li>
-	<li th:text="${producto.precio}">123,45</li>
-	<li th:text="${producto.fechaIncorporacion}">01-02-2003</li>
-</ul>
+
 
 </body>
 </html>

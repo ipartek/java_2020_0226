@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Listado</h1>
+
+<ul>
+	<li th:text="${producto.id}">1</li>
+	<li th:text="${producto.nombre}">Monitor</li>
+	<li th:text="${producto.precio}">123,45</li>
+	<li th:text="${producto.fechaIncorporacion}">01-02-2003</li>
+</ul>
+
+</body>
+</html>
