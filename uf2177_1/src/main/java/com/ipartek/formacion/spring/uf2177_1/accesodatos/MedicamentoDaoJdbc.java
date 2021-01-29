@@ -1,4 +1,4 @@
-package com.ipartek.formacion.spring.uf2176_3.accesodatos;
+package com.ipartek.formacion.spring.uf2177_1.accesodatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.ipartek.formacion.spring.uf2176_3.entidades.Medicamento;
+import com.ipartek.formacion.spring.uf2177_1.entidades.Medicamento;
 
 public class MedicamentoDaoJdbc implements MedicamentoDao {
 	private String url, usuario, password;

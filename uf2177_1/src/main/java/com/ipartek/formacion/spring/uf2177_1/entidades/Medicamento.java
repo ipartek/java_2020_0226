@@ -1,4 +1,4 @@
-package com.ipartek.formacion.spring.uf2176_3.entidades;
+package com.ipartek.formacion.spring.uf2177_1.entidades;
 
 import java.math.BigDecimal;
 

@@ -1,9 +1,9 @@
-package com.ipartek.formacion.spring.uf2176_3;
+package com.ipartek.formacion.spring.uf2177_1;
 
-import static com.ipartek.formacion.spring.uf2176_3.bibliotecas.Consola.leerBigDecimal;
-import static com.ipartek.formacion.spring.uf2176_3.bibliotecas.Consola.leerString;
-import static com.ipartek.formacion.spring.uf2176_3.bibliotecas.Consola.pl;
-import static com.ipartek.formacion.spring.uf2176_3.bibliotecas.Consola.mostrarErrores;
+import static com.ipartek.formacion.spring.uf2177_1.bibliotecas.Consola.leerBigDecimal;
+import static com.ipartek.formacion.spring.uf2177_1.bibliotecas.Consola.leerString;
+import static com.ipartek.formacion.spring.uf2177_1.bibliotecas.Consola.mostrarErrores;
+import static com.ipartek.formacion.spring.uf2177_1.bibliotecas.Consola.pl;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -12,12 +12,12 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import com.ipartek.formacion.spring.uf2176_3.accesodatos.MedicamentoDao;
-import com.ipartek.formacion.spring.uf2176_3.accesodatos.MedicamentoDaoJdbc;
-import com.ipartek.formacion.spring.uf2176_3.entidades.Medicamento;
+import com.ipartek.formacion.spring.uf2177_1.accesodatos.MedicamentoDao;
+import com.ipartek.formacion.spring.uf2177_1.accesodatos.MedicamentoDaoJdbc;
+import com.ipartek.formacion.spring.uf2177_1.entidades.Medicamento;
 
 //@SpringBootApplication
-public class Uf21763Application {
+public class Uf2177_1Application {
 
 	private static final String OPC_SALIR = "0";
 	private static final String OPC_ALTA = "1";

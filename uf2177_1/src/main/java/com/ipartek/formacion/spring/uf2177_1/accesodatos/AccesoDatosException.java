@@ -1,4 +1,4 @@
-package com.ipartek.formacion.spring.uf2176_3.accesodatos;
+package com.ipartek.formacion.spring.uf2177_1.accesodatos;
 
 public class AccesoDatosException extends RuntimeException {
 
