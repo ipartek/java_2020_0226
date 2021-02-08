@@ -1,0 +1,104 @@
+openapi: 3.0.1
+info:
+  title: ClienteREST
+  description: Ejemplo de REST para curso
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/'
+    description: Servidor de Spring Boot
+    variables: {}
+paths:
+  '/clientes/{id}':
+    get:
+      summary: Obtener un cliente por id
+      operationId: getById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Devuelve el cliente cuyo id es el que se ha pedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: No encontrado
+    put:
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '400':
+           description: Petición incorrecta
+        '200':
+          description: Modificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+    delete:
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Sin contenido
+        '404':
+          description: No encontrado
+        
+  /clientes:
+    get:
+      operationId: getAll
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Cliente'
+    post:
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '201':
+          description: Creado
+        '400':
+           description: Petición incorrecta
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellidos:
+          type: string
