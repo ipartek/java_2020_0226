@@ -18,7 +18,7 @@ import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 public class UsuariosAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Logger log = Logger.getLogger(UsuariosAdminServlet.class.getName());
+	private static final Logger LOG = Logger.getLogger(UsuariosAdminServlet.class.getName());
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class UsuariosAdminServlet extends HttpServlet {
 		
 		Iterable<Usuario> usuarios = dao.obtenerTodos();
 		
-		log.log(Level.INFO, "Usuarios: {0}", usuarios);
+		LOG.log(Level.INFO, "Usuarios: {0}", usuarios);
 		
 		request.setAttribute("usuarios", usuarios);
 		
