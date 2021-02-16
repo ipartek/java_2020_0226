@@ -1,6 +1,8 @@
 package com.ipartek.formacion.usuarioservlets.controladores.admin;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +17,18 @@ import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 @WebServlet("/admin/usuarios")
 public class UsuariosAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	private Logger log = Logger.getLogger(UsuariosAdminServlet.class.getName());
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Dao<Usuario> dao = new UsuarioDaoMySql();
 		
-		request.setAttribute("usuarios", dao.obtenerTodos());
+		Iterable<Usuario> usuarios = dao.obtenerTodos();
+		
+		log.log(Level.INFO, "Usuarios: {0}", usuarios);
+		
+		request.setAttribute("usuarios", usuarios);
 		
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/usuarios.jsp").forward(request, response);
 		
