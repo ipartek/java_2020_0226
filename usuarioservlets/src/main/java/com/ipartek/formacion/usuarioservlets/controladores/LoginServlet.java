@@ -42,9 +42,9 @@ public class LoginServlet extends HttpServlet {
 		Usuario usuario = dao.obtenerPorEmail(email);
 
 		String hash = obtenerHash(password);
-		
+
 		String longitud = String.valueOf(hash.length());
-		
+
 		LOG.info(password);
 		LOG.info(hash);
 		LOG.info(longitud);
@@ -52,7 +52,11 @@ public class LoginServlet extends HttpServlet {
 		if (hash.equals(usuario.getPassword())) {
 			request.getSession().setAttribute("usuario", usuario);
 
-			response.sendRedirect(getServletContext().getContextPath() + "/admin/usuarios");
+			if ("ADMIN".equals(usuario.getRol().getNombre())) {
+				response.sendRedirect(request.getContextPath() + "/admin/usuarios");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/");
+			}
 		} else {
 			request.setAttribute("mensaje", "El usuario o la contraseña son incorrectos");
 			request.setAttribute("nivel", "danger");
@@ -68,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 //			SecureRandom random = new SecureRandom();
 //			byte[] salt = new byte[16];
 //			random.nextBytes(salt);
-			
+
 			byte[] salt = new byte[] { 1, 3, 7, -5, 3, 5, -67, -123, 123, 23, 56, 86, -23, 123, 21, 125 };
 
 			KeySpec spec = new PBEKeySpec(texto.toCharArray(), salt, 65536, 128);
