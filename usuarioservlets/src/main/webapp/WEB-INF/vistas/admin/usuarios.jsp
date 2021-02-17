@@ -10,8 +10,9 @@
 			<tr>
 				<th scope="col">Id</th>
 				<th scope="col">Email</th>
-				<th scope="col">Contraseña</th>
 				<th scope="col">Rol</th>
+				<th scope="col">Descripción del rol</th>
+				<th scope="col">Opciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,12 +20,20 @@
 				<tr>
 					<th scope="row">${u.id}</th>
 					<td>${u.email}</td>
-					<td>${u.password}</td>
 					<td>${u.rol.nombre}</td>
+					<td>${u.rol.descripcion}</td>
+					<td>
+						<a class="btn btn-primary" href="admin/editar?id=${u.id}">Editar</a>
+						<a class="btn btn-danger" href="admin/borrar?id=${u.id}">Borrar</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<div>
+		<a class="btn btn-primary" href="admin/insertar">Añadir</a>
+	</div>
 </div>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
