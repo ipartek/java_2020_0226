@@ -19,6 +19,8 @@ public class UsuarioDaoMySql implements UsuarioDao {
 
 	private static final String SQL_SELECT = "SELECT u.id u_id, email, password, r.id r_id, nombre r_nombre, descripcion r_descripcion FROM usuarios u JOIN roles r ON u.roles_id = r.id";
 	private static final String SQL_SELECT_EMAIL = SQL_SELECT + " WHERE email = ?";
+	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id = ?";
+	
 	private DataSource dataSource = null;
 
 	public UsuarioDaoMySql() {
@@ -76,8 +78,19 @@ public class UsuarioDaoMySql implements UsuarioDao {
 
 	@Override
 	public void borrar(Long id) {
-		// TODO Auto-generated method stub
-		UsuarioDao.super.borrar(id);
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(SQL_DELETE);) {
+
+			pst.setLong(1, id);
+
+			if (pst.executeUpdate() != 1) {
+				throw new AccesoDatosException("No se ha encontrado el registro a borrar: " + id);
+			}
+
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido borrar el usuario: " + id);
+		} catch (Exception e) {
+			throw new AccesoDatosException("ERROR NO ESPERADO: No se ha podido borrar el usuario: " + id);
+		}
 	}
 
 	@Override

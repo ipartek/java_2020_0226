@@ -24,7 +24,7 @@
 					<td>${u.rol.descripcion}</td>
 					<td>
 						<a class="btn btn-primary" href="admin/editar?id=${u.id}">Editar</a>
-						<a class="btn btn-danger" href="admin/borrar?id=${u.id}">Borrar</a>
+						<a class="btn btn-danger" href="admin/borrar?id=${u.id}" onclick="return confirm('¿Estás seguro de que quieres borrar el usuario ${u.email}?')">Borrar</a>
 					</td>
 				</tr>
 			</c:forEach>
