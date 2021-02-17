@@ -1,6 +1,7 @@
 package com.ipartek.formacion.usuarioservlets.accesodatos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,18 +18,19 @@ import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 public class UsuarioDaoMySql implements UsuarioDao {
 
 	private static final String SQL_SELECT = "SELECT u.id u_id, email, password, r.id r_id, nombre r_nombre, descripcion r_descripcion FROM usuarios u JOIN roles r ON u.roles_id = r.id";
+	private static final String SQL_SELECT_EMAIL = SQL_SELECT + " WHERE email = ?";
 	private DataSource dataSource = null;
-	
+
 	public UsuarioDaoMySql() {
 		try {
-			InitialContext initCtx=new InitialContext();
+			InitialContext initCtx = new InitialContext();
 			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			dataSource = (DataSource)envCtx.lookup("jdbc/usuarioservlets");
+			dataSource = (DataSource) envCtx.lookup("jdbc/usuarioservlets");
 		} catch (NamingException e) {
 			throw new AccesoDatosException("No se ha encontrado el JNDI de usuarioservlets", e);
 		}
 	}
-	
+
 	@Override
 	public Iterable<Usuario> obtenerTodos() {
 		try (Connection con = dataSource.getConnection();
@@ -37,19 +39,20 @@ public class UsuarioDaoMySql implements UsuarioDao {
 			ArrayList<Usuario> usuarios = new ArrayList<>();
 			Usuario usuario;
 			Rol rol;
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				rol = new Rol(rs.getLong("r_id"), rs.getString("r_nombre"), rs.getString("r_descripcion"));
 				usuario = new Usuario(rs.getLong("u_id"), rs.getString("email"), rs.getString("password"), rol);
-				
+
 				usuarios.add(usuario);
 			}
-			
+
 			return usuarios;
 		} catch (SQLException e) {
 			throw new AccesoDatosException("No se han podido obtener todos los registros de usuarios");
 		} catch (Exception e) {
-			throw new AccesoDatosException("ERROR NO ESPERADO: No se han podido obtener todos los registros de usuarios");
+			throw new AccesoDatosException(
+					"ERROR NO ESPERADO: No se han podido obtener todos los registros de usuarios");
 		}
 	}
 
@@ -79,8 +82,27 @@ public class UsuarioDaoMySql implements UsuarioDao {
 
 	@Override
 	public Usuario obtenerPorEmail(String email) {
-		// TODO Auto-generated method stub
-		return UsuarioDao.super.obtenerPorEmail(email);
+		try (Connection con = dataSource.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_SELECT_EMAIL);) {
+
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+
+			Usuario usuario = null;
+			Rol rol;
+
+			if (rs.next()) {
+				rol = new Rol(rs.getLong("r_id"), rs.getString("r_nombre"), rs.getString("r_descripcion"));
+				usuario = new Usuario(rs.getLong("u_id"), rs.getString("email"), rs.getString("password"), rol);
+			}
+
+			return usuario;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido obtener el usuario cuyo email es: " + email);
+		} catch (Exception e) {
+			throw new AccesoDatosException(
+					"ERROR NO ESPERADO: No se ha podido obtener el usuario cuyo email es: " + email);
+		}
 	}
-	
+
 }

@@ -1,6 +1,11 @@
 package com.ipartek.formacion.usuarioservlets.entidades;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
+
+	private static final long serialVersionUID = 5009408407679518258L;
+	
 	private Long id;
 	private String email;
 	private String password;
