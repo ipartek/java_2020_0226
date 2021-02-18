@@ -1,4 +1,4 @@
-package com.ipartek.formacion.usuarioservlets.filtros;
+package com.ipartek.formacion.usuarioservlets.controladores.filtros;
 
 import java.io.IOException;
 

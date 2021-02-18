@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.usuarioservlets.accesodatos.UsuarioDao;
-import com.ipartek.formacion.usuarioservlets.accesodatos.UsuarioDaoMySql;
 import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 
 @WebServlet("/login")
@@ -37,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
-		UsuarioDao dao = new UsuarioDaoMySql();
+		UsuarioDao dao = Configuracion.daoUsuario;
 
 		Usuario usuario = dao.obtenerPorEmail(email);
 
@@ -80,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 
 			return Base64.getEncoder().encodeToString((factory.generateSecret(spec).getEncoded()));
 		} catch (Exception e) {
-			throw new RuntimeException("Error no esperado en el hashing del texto", e);
+			throw new ControladoresException("Error no esperado en el hashing del texto", e);
 		}
 	}
 }
