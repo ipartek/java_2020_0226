@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.usuarioservlets.controladores.Configuracion;
+import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 
 @WebServlet("/admin/usuario")
 public class UsuarioAdminServlet extends HttpServlet {
@@ -17,6 +18,14 @@ public class UsuarioAdminServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
+		
+		if(id != null) {
+			Usuario usuario = Configuracion.daoUsuario.obtenerPorId(Long.parseLong(id));
+			
+			request.setAttribute("usuario", usuario);
+		}
+		
 		request.setAttribute("roles", Configuracion.daoRol.obtenerTodos());
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/usuario.jsp").forward(request, response);
 	}
