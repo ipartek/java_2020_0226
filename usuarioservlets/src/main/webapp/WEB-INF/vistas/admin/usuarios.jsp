@@ -23,7 +23,7 @@
 					<td>${u.rol.nombre}</td>
 					<td>${u.rol.descripcion}</td>
 					<td>
-						<a class="btn btn-primary" href="admin/editar?id=${u.id}">Editar</a>
+						<a class="btn btn-primary" href="admin/usuario?id=${u.id}">Editar</a>
 						<a class="btn btn-danger" href="admin/borrar?id=${u.id}" onclick="return confirm('¿Estás seguro de que quieres borrar el usuario ${u.email}?')">Borrar</a>
 					</td>
 				</tr>
@@ -32,7 +32,7 @@
 	</table>
 	
 	<div>
-		<a class="btn btn-primary" href="admin/insertar">Añadir</a>
+		<a class="btn btn-primary" href="admin/usuario">Añadir</a>
 	</div>
 </div>
 
