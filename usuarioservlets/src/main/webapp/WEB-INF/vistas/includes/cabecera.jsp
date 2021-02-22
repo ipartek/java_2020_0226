@@ -17,6 +17,11 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 
 <title>Usuario Servlets</title>
+
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
