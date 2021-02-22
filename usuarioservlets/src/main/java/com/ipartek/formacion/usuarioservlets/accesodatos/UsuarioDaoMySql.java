@@ -21,6 +21,8 @@ public class UsuarioDaoMySql implements UsuarioDao {
 	private static final String SQL_SELECT_EMAIL = SQL_SELECT + " WHERE email = ?";
 	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id = ?";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE u.id = ?";
+	private static final String SQL_INSERT = "INSERT INTO usuarios (email, password, roles_id) VALUES (?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE usuarios SET email=?, password=?, roles_id=? WHERE id=?";
 	
 	private DataSource dataSource = null;
 
@@ -87,15 +89,45 @@ public class UsuarioDaoMySql implements UsuarioDao {
 	}
 
 	@Override
-	public Usuario insertar(Usuario t) {
-		// TODO Auto-generated method stub
-		return UsuarioDao.super.insertar(t);
+	public Usuario insertar(Usuario usuario) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(SQL_INSERT);) {
+
+			pst.setString(1, usuario.getEmail());
+			pst.setString(2, usuario.getPassword());
+			pst.setLong(3, usuario.getRol().getId());
+
+			if (pst.executeUpdate() != 1) {
+				throw new AccesoDatosException("No se ha insertado el usuario: " + usuario);
+			}
+
+			// TODO: usuario con ID generado
+			return usuario;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido insertar el usuario: " + usuario, e);
+		} catch (Exception e) {
+			throw new AccesoDatosException("ERROR NO ESPERADO: No se ha podido insertar el usuario: " + usuario, e);
+		}
 	}
 
 	@Override
-	public Usuario modificar(Usuario t) {
-		// TODO Auto-generated method stub
-		return UsuarioDao.super.modificar(t);
+	public Usuario modificar(Usuario usuario) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(SQL_UPDATE);) {
+
+			pst.setString(1, usuario.getEmail());
+			pst.setString(2, usuario.getPassword());
+			pst.setLong(3, usuario.getRol().getId());
+			pst.setLong(4, usuario.getId());
+
+			if (pst.executeUpdate() != 1) {
+				throw new AccesoDatosException("No se ha modificado el usuario: " + usuario);
+			}
+
+			return usuario;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido modificado el usuario: " + usuario, e);
+		} catch (Exception e) {
+			throw new AccesoDatosException("ERROR NO ESPERADO: No se ha podido modificado el usuario: " + usuario, e);
+		}
 	}
 
 	@Override

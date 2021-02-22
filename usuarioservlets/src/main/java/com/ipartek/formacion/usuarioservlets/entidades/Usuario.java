@@ -12,6 +12,22 @@ public class Usuario implements Serializable {
 	
 	private Rol rol;
 	
+	/**
+	 * Constructor de conveniencia para recibir datos de una capa de presentación, directamente en formato String
+	 * @param id id en formato String
+	 * @param email igual que lo pasaríamos al constructor principal
+	 * @param password igual que lo pasaríamos al contructor principal
+	 * @param rol sólo el id de rol, sin más información (en formato texto)
+	 */
+	public Usuario(String id, String email, String password, String rol) {
+		this(Long.parseLong(id), email, password, new Rol(Long.parseLong(rol), null, null));
+	}
+	
+	public Usuario(String email, String password, String rol) {
+		this(null, email, password, new Rol(Long.parseLong(rol), null, null));
+	}
+	
+	
 	public Usuario(Long id, String email, String password, Rol rol) {
 		setId(id);
 		setEmail(email);
