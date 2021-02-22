@@ -23,6 +23,7 @@ public class UsuarioDaoMySql implements UsuarioDao {
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE u.id = ?";
 	private static final String SQL_INSERT = "INSERT INTO usuarios (email, password, roles_id) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE usuarios SET email=?, password=?, roles_id=? WHERE id=?";
+	private static final String SQL_SELECT_ROL = SQL_SELECT + " WHERE r.id = ?";
 	
 	private DataSource dataSource = null;
 
@@ -172,4 +173,33 @@ public class UsuarioDaoMySql implements UsuarioDao {
 		}
 	}
 
+	@Override
+	public Iterable<Usuario> obtenerPorIdRol(Long id) {
+		try (Connection con = dataSource.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_SELECT_ROL);
+				) {
+			
+			pst.setLong(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			
+			ArrayList<Usuario> usuarios = new ArrayList<>();
+			Usuario usuario;
+			Rol rol;
+
+			while (rs.next()) {
+				rol = new Rol(rs.getLong("r_id"), rs.getString("r_nombre"), rs.getString("r_descripcion"));
+				usuario = new Usuario(rs.getLong("u_id"), rs.getString("email"), rs.getString("password"), rol);
+
+				usuarios.add(usuario);
+			}
+
+			return usuarios;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se han podido obtener todos los registros de usuarios", e);
+		} catch (Exception e) {
+			throw new AccesoDatosException(
+					"ERROR NO ESPERADO: No se han podido obtener todos los registros de usuarios", e);
+		}
+	}
 }
