@@ -1,9 +1,25 @@
 'use strict';
 
-var url = '/usuarioservlets/api/roles/';
+$('table input, table select').on('change', function() {
+	var id = this.id.split('_')[1];
+	var usuario = { id: id, email: $('#email_' + id).val(), rol: { id:$('#rol_' + id).val() } };
+	
+	var descripcion = $('#rol_' + id).find('option:selected').text().split(':')[1].trim();
+	$('#rol_' + id).parent().next().text(descripcion);
+	
+	console.log(usuario);
+	
+	$.ajax(urlUsuarios, {
+		method: 'PUT',
+		data: JSON.stringify(usuario)
+	});
+});
+
+var urlUsuarios = '/usuarioservlets/api/usuarios/';
+var urlRoles = '/usuarioservlets/api/roles/';
 
 // Llamamos por GET al servidor REST y recibimos directamente una colección de roles
-$.getJSON(url, function(roles) {
+$.getJSON(urlRoles, function(roles) {
 	console.log(roles);
 
 	// Por cada rol que haya en roles
@@ -48,7 +64,7 @@ $.getJSON(url, function(roles) {
 		console.log(id);
 
 		// Lanzamos una petición AJAX a la dirección /usuarioservlets/api/roles/1/usuarios
-		$.getJSON(url + id + '/usuarios', function(usuarios) {
+		$.getJSON(urlRoles + id + '/usuarios', function(usuarios) {
 			// Al llegar la respuesta recorremos los objetos de tipo usuario de uno en uno
 			$(usuarios).each(function() {
 				// Por cada objeto de tipo usuario

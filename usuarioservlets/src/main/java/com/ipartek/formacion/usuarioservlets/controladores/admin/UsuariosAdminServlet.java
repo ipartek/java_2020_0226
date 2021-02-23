@@ -29,6 +29,7 @@ public class UsuariosAdminServlet extends HttpServlet {
 		LOG.log(Level.INFO, "Usuarios: {0}", usuarios);
 		
 		request.setAttribute("usuarios", usuarios);
+		request.setAttribute("roles", Configuracion.daoRol.obtenerTodos());
 		
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/usuarios.jsp").forward(request, response);
 		

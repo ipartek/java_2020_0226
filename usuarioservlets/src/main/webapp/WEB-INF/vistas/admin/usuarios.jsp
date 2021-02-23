@@ -26,8 +26,17 @@
 			<c:forEach items="${usuarios}" var="u">
 				<tr>
 					<th scope="row">${u.id}</th>
-					<td>${u.email}</td>
-					<td>${u.rol.nombre}</td>
+					<td>
+					<input class="form-control" id="email_${u.id}" value="${u.email}" /></td>
+					<td><select class="form-control" id="rol_${u.id}">
+							<option value="0">Selecciona un rol</option>
+
+							<c:forEach items="${roles}" var="rol">
+								<option value="${rol.id}"
+									${rol.id == u.rol.id ? 'selected' : '' }>${rol.nombre}:
+									${rol.descripcion}</option>
+							</c:forEach>
+					</select></td>
 					<td>${u.rol.descripcion}</td>
 					<td><a class="btn btn-primary" href="admin/usuario?id=${u.id}">Editar</a>
 						<a class="btn btn-danger" href="admin/borrar?id=${u.id}"

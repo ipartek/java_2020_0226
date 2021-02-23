@@ -17,12 +17,14 @@ import com.ipartek.formacion.usuarioservlets.entidades.Usuario;
 
 public class UsuarioDaoMySql implements UsuarioDao {
 
-	private static final String SQL_SELECT = "SELECT u.id u_id, email, password, r.id r_id, nombre r_nombre, descripcion r_descripcion FROM usuarios u JOIN roles r ON u.roles_id = r.id";
-	private static final String SQL_SELECT_EMAIL = SQL_SELECT + " WHERE email = ?";
+	private static final String SQL_SEL = "SELECT u.id u_id, email, password, r.id r_id, nombre r_nombre, descripcion r_descripcion FROM usuarios u JOIN roles r ON u.roles_id = r.id";
+	private static final String SQL_SELECT = SQL_SEL + " ORDER BY u.id";
+	private static final String SQL_SELECT_EMAIL = SQL_SEL + " WHERE email = ?";
 	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id = ?";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE u.id = ?";
 	private static final String SQL_INSERT = "INSERT INTO usuarios (email, password, roles_id) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE usuarios SET email=?, password=?, roles_id=? WHERE id=?";
+	private static final String SQL_UPDATE_SIN_PASSWORD = "UPDATE usuarios SET email=?, roles_id=? WHERE id=?";
 	private static final String SQL_SELECT_ROL = SQL_SELECT + " WHERE r.id = ?";
 	
 	private DataSource dataSource = null;
@@ -118,6 +120,26 @@ public class UsuarioDaoMySql implements UsuarioDao {
 			pst.setString(2, usuario.getPassword());
 			pst.setLong(3, usuario.getRol().getId());
 			pst.setLong(4, usuario.getId());
+
+			if (pst.executeUpdate() != 1) {
+				throw new AccesoDatosException("No se ha modificado el usuario: " + usuario);
+			}
+
+			return usuario;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido modificado el usuario: " + usuario, e);
+		} catch (Exception e) {
+			throw new AccesoDatosException("ERROR NO ESPERADO: No se ha podido modificado el usuario: " + usuario, e);
+		}
+	}
+	
+	@Override
+	public Usuario modificarSinPassword(Usuario usuario) {
+		try (Connection con = dataSource.getConnection(); PreparedStatement pst = con.prepareStatement(SQL_UPDATE_SIN_PASSWORD);) {
+
+			pst.setString(1, usuario.getEmail());
+			pst.setLong(2, usuario.getRol().getId());
+			pst.setLong(3, usuario.getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new AccesoDatosException("No se ha modificado el usuario: " + usuario);
