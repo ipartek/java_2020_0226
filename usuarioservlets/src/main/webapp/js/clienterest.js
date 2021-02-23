@@ -23,20 +23,24 @@ $.getJSON(url, function(roles) {
 		console.log('Cambio select');
 
 		// Si no se ha creado todavía ningún <select id="select-usuarios"> 
-		if ($('#select-usuarios').length < 1) {
-			// Al <select id="select-roles">
-			$('#select-roles')
-				// Le insertamos después un elemento de HTML (<select class="form-control" id="select-usuarios">)
-				.after($('<select class="form-control" id="select-usuarios">')
+		if ($('#select-usuarios').length == 1) {
+			// Borramos el desplegable de usuarios
+			$('#select-usuarios').remove();			
+		}
+		
+		// Al <select id="select-roles">
+		$('#select-roles')
+			// Le insertamos después un elemento de HTML (<select class="form-control" id="select-usuarios">)
+			.after($('<select class="form-control" id="select-usuarios">')
 				// Y le agregamos dentro un aop
 				.append($('<option>Selecciona un usuario</option>')));
 
-			// Cuando cambie el valor seleccionado en <select id="select-usuarios">
-			$('#select-usuarios').on('change', function() {
-				// Modificamos la URL del navegador para que nos lleve al detallle de ese usuario
-				location.href='/usuarioservlets/admin/usuario?id=' + $('#select-usuarios').val();
-			});
-		}
+		// Cuando cambie el valor seleccionado en <select id="select-usuarios">
+		$('#select-usuarios').on('change', function() {
+			// Modificamos la URL del navegador para que nos lleve al detallle de ese usuario
+			location.href = '/usuarioservlets/admin/usuario?id=' + $('#select-usuarios').val();
+		});
+
 
 		// Tomamos el valor seleccionado del <select id="select-roles">
 		var id = $('#select-roles').val();
