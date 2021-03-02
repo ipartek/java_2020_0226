@@ -39,7 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 	  throws Exception {
-	    auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder());
+	    auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
+	    .usersByUsernameQuery("select email,password,1 "
+	            + "from usuarios "
+	            + "where email = ?")
+	          .authoritiesByUsernameQuery("select email,rol "
+	            + "from usuarios "
+	            + "where email = ?");
 	}
 
 // https://www.browserling.com/tools/bcrypt
