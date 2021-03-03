@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/supermercado">
+	<Resource type="javax.sql.DataSource" auth="Container"
+		name="jdbc/supermercado" driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/supermercado?serverTimezone=UTC" username="super"
+		password="mercado" maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+		validationQuery="SELECT 1 FROM dual" />
+</Context>

@@ -13,6 +13,7 @@ public class Producto {
 	private String descripcion;
 	private String urlImagen;
 	private BigDecimal precio;
+	private Integer descuento;
 	private String unidadMedida;
 	private BigDecimal precioUnidadMedida;
 	private Integer cantidad;
