@@ -6,4 +6,6 @@ import com.ipartek.formacion.ejemplofinal.entidades.Producto;
 
 public interface CarritoNegocio {
 	Set<Producto> listadoProductos();
+
+	Producto productoPorId(Long id);
 }
