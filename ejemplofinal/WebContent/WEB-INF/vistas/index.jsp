@@ -8,10 +8,11 @@
 	<c:forEach items="${productos}" var="producto">
 		<div class="col mb-4">
 			<div class="card h-100">
-				<img src="${producto.urlImagen}" class="card-img-top" alt="">
+				<img src="imgs/${producto.urlImagen}" class="card-img-top" alt="">
 				<div class="card-body">
 					<h5 class="card-title">${producto.nombre}</h5>
 					<p class="card-text">${producto.descripcion}</p>
+					<a href="add-carrito?id=${producto.id}" class="btn btn-primary">Añadir al carrito</a>
 				</div>
 			</div>
 		</div>
