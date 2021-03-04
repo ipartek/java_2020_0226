@@ -1,7 +1,9 @@
 package com.ipartek.formacion.ejemplofinal.accesodatos;
 
+import java.util.Set;
+
 public interface Dao<T> {
-	default Iterable<T> obtenerTodos() {
+	default Set<T> obtenerTodos() {
 		throw new AccesoDatosException("NO IMPLEMENTADO");
 	}
 
