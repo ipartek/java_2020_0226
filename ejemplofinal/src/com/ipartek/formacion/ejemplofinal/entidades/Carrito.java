@@ -12,12 +12,14 @@ public class Carrito implements Serializable {
 	public void addProducto(Producto producto, Integer cantidad) {
 		Long id = producto.getId();
 		
+		DetalleCarrito linea;
+		
 		if(lineas.containsKey(id)) {
-			DetalleCarrito linea = lineas.get(id);
+			linea = lineas.get(id);
 			
-			linea.setCantidad(linea.getCantidad() +  producto.getCantidad());
+			linea.setCantidad(linea.getCantidad() +  cantidad);
 		} else {
-			DetalleCarrito linea = new DetalleCarrito(producto, cantidad);
+			linea = new DetalleCarrito(producto, cantidad);
 		
 			lineas.put(id, linea);
 		}
