@@ -8,11 +8,6 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.ipartek.formacion.ejemplofinal.entidades.Departamento;
 import com.ipartek.formacion.ejemplofinal.entidades.Producto;
 
@@ -20,27 +15,15 @@ public class ProductoDaoMySql implements Dao<Producto> {
 	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.descripcion AS descripcion, url_imagen, precio, descuento, unidad_medida, precio_unidad_medida, cantidad, activo, d.id AS d_id, d.nombre AS d_nombre, d.descripcion AS d_descripcion  \r\n"
 			+ "FROM productos p\r\n" + "JOIN departamentos d ON p.departamentos_id = d.id";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE p.id = ?";
-	private DataSource dataSource;
-
-	ProductoDaoMySql() {
-		try {
-			InitialContext initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			dataSource = (DataSource) envCtx.lookup("jdbc/supermercado");
-		} catch (NamingException e) {
-			throw new AccesoDatosException("No se ha encontrado el JNDI de supermercado", e);
-		}
-	}
 
 	@Override
 	public Set<Producto> obtenerTodos() {
-		try (Connection con = dataSource.getConnection();
+		try (Connection con = Config.dataSource.getConnection();
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(SQL_SELECT)) {
 			Set<Producto> productos = new HashSet<>();
 			
 			Producto producto;
-			Departamento departamento;
 
 			while (rs.next()) {
 				producto = mapearResultSetProducto(rs);
@@ -56,7 +39,7 @@ public class ProductoDaoMySql implements Dao<Producto> {
 
 	@Override
 	public Producto obtenerPorId(Long id) {
-		try (Connection con = dataSource.getConnection();
+		try (Connection con = Config.dataSource.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT_ID);
 				) {
 			
