@@ -9,24 +9,46 @@
 	<tbody>
 		<tr>
 			<th scope="row">Id</th>
-			<td>${cliente.id}</td>
+			<td>${factura.cliente.id}</td>
 		</tr>
 		<tr>
 			<th scope="row">Nombre</th>
-			<td>${cliente.nombre}</td>
+			<td>${factura.cliente.nombre}</td>
 		</tr>
 		<tr>
 			<th scope="row">Apellidos</th>
-			<td>${cliente.apellidos}</td>
+			<td>${factura.cliente.apellidos}</td>
 		</tr>
 		<tr>
 			<th scope="row">CIF</th>
-			<td>${cliente.cif}</td>
+			<td>${factura.cliente.cif}</td>
 		</tr>
 		<tr>
 			<th scope="row">Fecha de nacimiento</th>
-			<td>${cliente.fechaNacimiento}</td>
+			<td>${factura.cliente.fechaNacimiento}</td>
 		</tr>
+	</tbody>
+</table>
+
+<table class="table">
+	<caption>Productos</caption>
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Cantidad</th>
+			<th scope="col">Precio unidad</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${factura.detallesFactura}" var="linea">
+		<tr>
+			<th scope="row">${linea.producto.id}</th>
+			<td>${linea.producto.nombre}</td>
+			<td>${linea.cantidad}</td>
+			<td>${linea.producto.precio}</td>
+		</tr>
+		</c:forEach>
 	</tbody>
 </table>
 
