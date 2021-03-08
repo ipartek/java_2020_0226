@@ -36,7 +36,7 @@ public class ClienteServlet extends HttpServlet {
 		Config.clienteNegocio.altaCliente(cliente);
 		
 		request.setAttribute("cliente", cliente);
-		request.getRequestDispatcher(Config.PATH_VISTAS + "factura").forward(request, response);
+		request.getRequestDispatcher(Config.PATH_VISTAS + "factura.jsp").forward(request, response);
 	}
 
 }
