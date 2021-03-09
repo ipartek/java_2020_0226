@@ -6,7 +6,9 @@ import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Factura implements Serializable {
@@ -21,6 +23,8 @@ public class Factura implements Serializable {
 	
 	private Cliente cliente;
 	
+	@ToString.Exclude
+	@EqualsAndHashCode.Exclude
 	private Set<DetalleFactura> detallesFactura;
 	
 	public BigDecimal getTotal() {
