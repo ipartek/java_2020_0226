@@ -2,8 +2,6 @@ package com.ipartek.formacion.ejemplofinal.controladores;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,23 +21,19 @@ public class CrearFacturaServlet extends HttpServlet {
     
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO: Utilizar sesión y comprobar si existe o no el cliente
 		Cliente cliente = (Cliente) request.getAttribute("cliente");
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 		
 		Factura factura = new Factura();
 		
-		
 		factura.setFecha(LocalDate.now());
 		factura.setCliente(cliente);
 		
-		Set<DetalleFactura> detallesFactura = new HashSet<>();
-		
 		for(DetalleCarrito detalle: carrito.getLineas()) {
-			detallesFactura.add(
+			factura.getDetallesFactura().add(
 					new DetalleFactura(factura, detalle.getProducto(), detalle.getCantidad()));
 		}
-		
-		factura.setDetallesFactura(detallesFactura);
 		
 		Config.carritoNegocio.guardarFactura(factura);
 		
