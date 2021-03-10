@@ -10,7 +10,7 @@ import com.ipartek.formacion.ejemplofinal.entidades.Cliente;
 import lombok.extern.java.Log;
 
 @Log
-public class ClienteDaoMySql implements Dao<Cliente> {
+class ClienteDaoMySql implements Dao<Cliente> {
 	
 	private static final String SQL_INSERT = "INSERT INTO clientes (nombre, apellidos, cif, fecha_nacimiento) VALUES (?, ?, ?, ?)";
 

@@ -5,7 +5,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class Config {
+class Config {
 	private static final String JDBC_SUPERMERCADO = "jdbc/supermercado";
 
 	private Config() {}

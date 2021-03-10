@@ -11,7 +11,7 @@ import java.util.Set;
 import com.ipartek.formacion.ejemplofinal.entidades.Departamento;
 import com.ipartek.formacion.ejemplofinal.entidades.Producto;
 
-public class ProductoDaoMySql implements Dao<Producto> {
+class ProductoDaoMySql implements Dao<Producto> {
 	private static final String SQL_SELECT = "SELECT p.id AS id, p.nombre AS nombre, p.descripcion AS descripcion, url_imagen, precio, descuento, unidad_medida, precio_unidad_medida, cantidad, activo, d.id AS d_id, d.nombre AS d_nombre, d.descripcion AS d_descripcion  \r\n"
 			+ "FROM productos p\r\n" + "JOIN departamentos d ON p.departamentos_id = d.id";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE p.id = ?";
