@@ -73,12 +73,12 @@
 	</div>
 
 	<div class="row">
-		<p class="text-right">
-			<fmt:parseDate value="${factura.fecha}" pattern="yyyy-MM-dd"
-				var="fecha" type="date" />
-		</p>
 
-		<div>
+		<fmt:parseDate value="${factura.fecha}" pattern="yyyy-MM-dd"
+			var="fecha" type="date" />
+
+		<div class="text-right">
+			Número de factura: ${factura.codigo}<br />
 			Fecha de factura:
 			<fmt:formatDate value="${fecha}" dateStyle="long" />
 		</div>
