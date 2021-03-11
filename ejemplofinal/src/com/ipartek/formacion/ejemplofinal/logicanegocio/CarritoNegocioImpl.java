@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.ipartek.formacion.ejemplofinal.accesodatos.Dao;
 import com.ipartek.formacion.ejemplofinal.accesodatos.DaoFabrica;
+import com.ipartek.formacion.ejemplofinal.accesodatos.DaoFactura;
 import com.ipartek.formacion.ejemplofinal.entidades.Factura;
 import com.ipartek.formacion.ejemplofinal.entidades.Producto;
 
@@ -14,7 +15,7 @@ import lombok.extern.java.Log;
 public class CarritoNegocioImpl implements CarritoNegocio {
 
 	private Dao<Producto> daoProducto = DaoFabrica.getDaoProducto();
-	private Dao<Factura> daoFactura = DaoFabrica.getDaoFactura();
+	private DaoFactura daoFactura = DaoFabrica.getDaoFactura();
 
 	@Override
 	public Set<Producto> listadoProductos() {
@@ -32,7 +33,7 @@ public class CarritoNegocioImpl implements CarritoNegocio {
 
 	@Override
 	public Factura guardarFactura(Factura factura) {
-		String codigo = "20210001"; // daoFactura.obtenerUltimoCodigo(); //20210001
+		String codigo = daoFactura.obtenerUltimoCodigo(); //20210001
 		String nuevoCodigo = aumentarCodigo(codigo);
 		factura.setCodigo(nuevoCodigo);
 		log.info(factura.toString());

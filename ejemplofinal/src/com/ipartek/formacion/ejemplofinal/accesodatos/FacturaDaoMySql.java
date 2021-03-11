@@ -5,14 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import com.ipartek.formacion.ejemplofinal.entidades.DetalleFactura;
 import com.ipartek.formacion.ejemplofinal.entidades.Factura;
 
-class FacturaDaoMySql implements Dao<Factura> {
+class FacturaDaoMySql implements DaoFactura {
 
 	private static final String SQL_INSERT = "INSERT INTO facturas (clientes_id, codigo, fecha) VALUES (?,?,?)";
 	private static final String SQL_INSERT_DETALLE = "INSERT INTO facturas_has_productos (facturas_id, productos_id, cantidad) VALUES (?,?,?)";
+	private static final String SQL_CODIGO = "SELECT MAX(codigo) FROM supermercado.facturas WHERE codigo LIKE CONCAT(?, '____')";
 
 	@Override
 	public Factura insertar(Factura factura) {
@@ -65,6 +67,21 @@ class FacturaDaoMySql implements Dao<Factura> {
 		} catch (Exception e) {
 			con.rollback();
 			throw new AccesoDatosException("Se ha hecho rollback", e);
+		}
+	}
+
+	@Override
+	public String obtenerUltimoCodigo() {
+		try (Connection con = Config.dataSource.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_CODIGO);
+				) {
+			ps.setString(1, String.valueOf(LocalDate.now().getYear()));
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			return rs.getString(1);
+		} catch (Exception e) {
+			throw new AccesoDatosException("No se ha podido obtener el código", e);
 		}
 	}
 
