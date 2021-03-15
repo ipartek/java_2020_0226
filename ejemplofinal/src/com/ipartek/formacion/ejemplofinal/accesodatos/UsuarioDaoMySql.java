@@ -3,7 +3,6 @@ package com.ipartek.formacion.ejemplofinal.accesodatos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 
 import com.ipartek.formacion.ejemplofinal.entidades.Cliente;
 import com.ipartek.formacion.ejemplofinal.entidades.Usuario;
@@ -24,7 +23,7 @@ public class UsuarioDaoMySql implements DaoUsuario {
 			Cliente cliente = null;
 			
 			if(rs.next()) {
-				cliente = new Cliente(rs.getLong("c.id"), rs.getString("c.nombre"), rs.getString("c.apellidos"), rs.getString("c.cif"), (LocalDate) rs.getObject("c.fecha_nacimiento"), null);
+				cliente = new Cliente(rs.getLong("c.id"), rs.getString("c.nombre"), rs.getString("c.apellidos"), rs.getString("c.cif"), rs.getDate("c.fecha_nacimiento").toLocalDate(), null);
 				usuario = new Usuario(rs.getLong("u.id"), rs.getString("u.email"), rs.getString("u.password"), cliente);
 			}
 			
