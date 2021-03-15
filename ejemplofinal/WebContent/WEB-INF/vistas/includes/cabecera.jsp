@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,5 +39,17 @@
 				</ul>
 			</div>
 		</nav>
+		<c:if test="${alerta != null}">
+			<div class="alert alert-${alerta.nivel} alert-dismissible fade show"
+				role="alert">
+				${alerta.mensaje}
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<% session.removeAttribute("alerta"); %>
+		</c:if>
 	</header>
 	<main class="container">
