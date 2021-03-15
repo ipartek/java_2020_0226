@@ -3,7 +3,7 @@
 
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<form>
+<form action="login" method="post">
 	<div class="form-group row">
 		<label for="email" class="col-sm-2 col-form-label">Email</label>
 		<div class="col-sm-10">
