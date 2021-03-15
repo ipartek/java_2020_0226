@@ -128,5 +128,10 @@
 			</tfoot>
 		</table>
 	</div>
+	
+	<div class="row">
+		<a class="btn btn-primary" href="javascript:print()">Imprimir factura</a>
+	</div>
 </div>
+
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
