@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if(Config.usuarioNegocio.validarUsuario(usuario)) {
 			request.getSession().setAttribute("usuario", usuario);
-			request.getRequestDispatcher(Config.PATH_VISTAS + "index.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/index");
 		} else {
 			request.setAttribute("usuario", usuario);
 			request.getRequestDispatcher(Config.PATH_VISTAS + "login.jsp").forward(request, response);
