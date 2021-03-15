@@ -37,6 +37,20 @@
 							<span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
+				<ul class="navbar-nav">
+					<c:choose>
+						<c:when test="${sessionScope.usuario != null}">
+							<li class="nav-item"><span class="navbar-text">${sessionScope.usuario.email}</span>
+							</li>
+							<li class="nav-item"><a class="btn btn-outline-danger"
+								href="logout">Logout</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="btn btn-outline-primary"
+								href="login">Login</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
 			</div>
 		</nav>
 		<c:if test="${alerta != null}">
@@ -48,8 +62,10 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			
-			<% session.removeAttribute("alerta"); %>
+
+			<%
+				session.removeAttribute("alerta");
+			%>
 		</c:if>
 	</header>
 	<main class="container">
