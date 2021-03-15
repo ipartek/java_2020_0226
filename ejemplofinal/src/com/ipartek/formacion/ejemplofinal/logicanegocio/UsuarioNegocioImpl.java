@@ -12,7 +12,7 @@ public class UsuarioNegocioImpl implements UsuarioNegocio {
 	public boolean validarUsuario(Usuario usuario) {
 		Usuario usuarioBdd = dao.obtenerPorEmail(usuario.getEmail());
 		
-		if(usuario.getPassword().equals(usuarioBdd.getPassword())) {
+		if(usuarioBdd != null && usuario.getPassword().equals(usuarioBdd.getPassword())) {
 			usuario.setId(usuarioBdd.getId());
 			usuario.setCliente(usuarioBdd.getCliente());
 			
