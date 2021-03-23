@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{_plantilla :: estructura(~{::body})}" lang="es">
+<head>
+<title>Principal</title>
+</head>
+<body>
+	<div
+		class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+		<div th:each="producto: ${productos}" class="col mb-4">
+			<div class="card h-100">
+				<img th:src="|imgs/${producto.urlImagen}|" class="card-img-top" alt="">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${producto.nombre}">NOMBRE DEL PRODUCTO</h5>
+					<p class="card-text" th:text="${producto.descripcion}">DESCRIPCIÓN DEL PRODUCTO</p>
+					<a th:href="|add-carrito?id=${producto.id}|" class="btn btn-primary">Añadir
+						al carrito</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
