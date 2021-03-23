@@ -1,6 +1,8 @@
 package com.ipartek.formacion.spring.ejemplofinalspring.controladores;
 
+import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +20,10 @@ import com.ipartek.formacion.spring.ejemplofinalspring.entidades.DetalleCarrito;
 import com.ipartek.formacion.spring.ejemplofinalspring.entidades.DetalleFactura;
 import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Factura;
 import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Producto;
+import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Usuario;
 import com.ipartek.formacion.spring.ejemplofinalspring.servicios.CarritoNegocio;
 import com.ipartek.formacion.spring.ejemplofinalspring.servicios.ClienteNegocio;
+import com.ipartek.formacion.spring.ejemplofinalspring.servicios.UsuarioNegocio;
 
 import lombok.extern.java.Log;
 
@@ -31,6 +35,8 @@ public class IndexController {
 	private CarritoNegocio carritoNegocio;
 	@Autowired
 	private ClienteNegocio clienteNegocio;
+	@Autowired
+	private UsuarioNegocio usuarioNegocio;
 
 	@ModelAttribute("carrito")
 	private Carrito getCarrito() {
@@ -58,7 +64,19 @@ public class IndexController {
 	}
 
 	@RequestMapping("/confirmar-compra")
-	public String confirmarCompra() {
+	public String confirmarCompra(Principal principal, Map<String, Object> model) {
+		if (principal != null) {
+			String email = principal.getName();
+
+			Usuario usuario = usuarioNegocio.obtenerUsuarioPorEmail(email);
+
+			if (usuario != null && usuario.getCliente() != null) {
+				log.info(usuario.toString());
+				model.put("cliente", usuario.getCliente());
+				return "redirect:/crear-factura";
+			}
+		}
+		
 		return "redirect:/cliente";
 	}
 
@@ -81,6 +99,11 @@ public class IndexController {
 		// TODO: Crear factura por lógica de negocio
 
 		factura.setFecha(LocalDate.now());
+
+		if (cliente.getId() == null) {
+			return "redirect:/cliente";
+		}
+
 		factura.setCliente(cliente);
 
 		for (DetalleCarrito detalle : carrito.getLineas()) {

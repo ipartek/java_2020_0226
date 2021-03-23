@@ -1,10 +1,12 @@
 package com.ipartek.formacion.spring.ejemplofinalspring.servicios;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Usuario;
 import com.ipartek.formacion.spring.ejemplofinalspring.repositorios.DaoUsuario;
 
+@Service
 public class UsuarioNegocioImpl implements UsuarioNegocio {
 
 	@Autowired
@@ -24,4 +26,8 @@ public class UsuarioNegocioImpl implements UsuarioNegocio {
 		}
 	}
 
+	@Override
+	public Usuario obtenerUsuarioPorEmail(String email) {
+		return dao.obtenerPorEmail(email);
+	}
 }
