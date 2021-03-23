@@ -78,7 +78,6 @@ public class IndexController {
 	}
 
 	@RequestMapping("/crear-factura")
-	@ResponseBody
 	public String crearFactura(Cliente cliente, Carrito carrito, Factura factura) {
 		// TODO: Crear factura por lógica de negocio
 
@@ -91,6 +90,6 @@ public class IndexController {
 
 		carritoNegocio.guardarFactura(factura);
 
-		return factura.toString();
+		return "factura";
 	}
 }
