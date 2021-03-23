@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{_plantilla :: estructura(~{::body})}" lang="es">
+<head>
+<title>Carrito</title>
+</head>
+<body>
+	<table
+		class="table table-striped table-bordered table-hover table-sm text-right">
+		<caption>Carrito</caption>
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col" class="text-left">Nombre</th>
+				<th scope="col">Cantidad</th>
+				<th scope="col">Precio unidad</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="linea: ${carrito.lineas}">
+				<th scope="row" th:text="${linea.producto.id}">ID DE PRODUCTO</th>
+				<td class="text-left" th:text="${linea.producto.nombre}">NOMBRE DE PRODUCTO</td>
+				<td th:text="${linea.cantidad}">CANTIDAD DE PRODUCTO</td>
+				<td th:text="${linea.producto.precio}">PRECIO DE PRODUCTO €</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
