@@ -20,12 +20,15 @@
 
 			<tr th:each="linea: ${carrito.lineas}">
 				<th scope="row" th:text="${linea.producto.id}">ID DE PRODUCTO</th>
-				<td class="text-left" th:text="${linea.producto.nombre}">NOMBRE DE PRODUCTO</td>
+				<td class="text-left" th:text="${linea.producto.nombre}">NOMBRE
+					DE PRODUCTO</td>
 				<td th:text="${linea.cantidad}">CANTIDAD DE PRODUCTO</td>
 				<td th:text="${linea.producto.precio}">PRECIO DE PRODUCTO €</td>
 			</tr>
 		</tbody>
 	</table>
+
+	<a class="btn btn-primary" href="confirmar-compra">Confirmar compra</a>
 
 </body>
 </html>

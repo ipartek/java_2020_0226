@@ -3,20 +3,27 @@ package com.ipartek.formacion.spring.ejemplofinalspring.controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Carrito;
+import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Cliente;
 import com.ipartek.formacion.spring.ejemplofinalspring.entidades.Producto;
 import com.ipartek.formacion.spring.ejemplofinalspring.servicios.CarritoNegocio;
+import com.ipartek.formacion.spring.ejemplofinalspring.servicios.ClienteNegocio;
 
 @Controller
 @SessionAttributes("carrito")
 public class IndexController {
 	@Autowired
 	private CarritoNegocio carritoNegocio;
+	@Autowired
+	private ClienteNegocio clienteNegocio;
 	
 	@ModelAttribute("carrito")
 	private Carrito getCarrito() {
@@ -36,5 +43,23 @@ public class IndexController {
 		carrito.addProducto(producto, 1);
 		
 		return "carrito";
+	}
+	
+	@RequestMapping("/confirmar-compra")
+	public String confirmarCompra() {
+		return "redirect:/cliente";
+	}
+	
+	@GetMapping("/cliente")
+	public String clienteGet() {
+		return "cliente";
+	}
+	
+	@PostMapping("/cliente")
+	@ResponseBody
+	public String clientePost(Cliente cliente) {
+		clienteNegocio.altaCliente(cliente);
+		
+		return cliente.toString();
 	}
 }
