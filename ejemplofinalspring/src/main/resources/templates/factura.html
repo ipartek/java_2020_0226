@@ -52,7 +52,7 @@
 
 			<div class="col-12 p-0 text-right">
 				Número de factura: [[${factura.codigo}]]<br /> Fecha de factura:
-				[[${factura.fecha}]]
+				[[${#temporals.format(factura.fecha, 'dd-MM-yyyy')}]]
 			</div>
 
 			<table id="productos"
@@ -72,23 +72,23 @@
 						<th scope="row">[[${linea.producto.id}]]</th>
 						<td class="text-left">[[${linea.producto.nombre}]]</td>
 						<td>[[${linea.cantidad}]]</td>
-						<td>[[${linea.producto.precio}]]</td>
-						<td class="font-weight-bold">[[${linea.total}]]</td>
+						<td>[[${#numbers.formatCurrency(linea.producto.precio)}]]</td>
+						<td class="font-weight-bold">[[${#numbers.formatCurrency(linea.total)}]]</td>
 					</tr>
 				</tbody>
 
 				<tfoot>
 					<tr>
 						<th scope="row" colspan="4">Total</th>
-						<td class="font-weight-bold">[[${factura.total}]]</td>
+						<td class="font-weight-bold">[[${#numbers.formatCurrency(factura.total)}]]</td>
 					</tr>
 					<tr>
 						<th scope="row" colspan="4">IVA (21%)</th>
-						<td class="font-weight-bold">[[${factura.iva}]]</td>
+						<td class="font-weight-bold">[[${#numbers.formatCurrency(factura.iva)}]]</td>
 					</tr>
 					<tr>
 						<th scope="row" colspan="4">Total (IVA incluído)</th>
-						<td class="font-weight-bold">[[${factura.totalConIva}]]</td>
+						<td class="font-weight-bold">[[${#numbers.formatCurrency(factura.totalConIva)}]]</td>
 					</tr>
 				</tfoot>
 			</table>
